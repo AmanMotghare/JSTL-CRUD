@@ -9,4 +9,3 @@ url="jdbc:mysql://localhost:3306/projectjstl"
 user="root"
 password="abc123"/>
 
-Connection Success

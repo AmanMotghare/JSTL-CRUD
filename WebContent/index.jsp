@@ -17,7 +17,7 @@
   <style type="text/css">
   .my-custom-scrollbar {
 	position: relative;
-	height: 600px;
+	height: 400px;
 	width: 1000px;
 	overflow: auto;
 	}
@@ -61,6 +61,27 @@
 					      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					    </div>
 					    </c:when> 
+					    
+					    <c:when test="${param.deletecount<0}">  
+					      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+					      <strong>Data can not be Deleted  !!</strong> 
+					      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					    </div>
+					    </c:when> 
+					    
+					    <c:when test="${param.updatecount>0}">  
+					      <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+					      <strong>Data Updated Successfully !!</strong> 
+					      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					    </div>
+					    </c:when> 
+					    
+					    <c:when test="${param.updatecount<0}">  
+					      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+					      <strong>Data can not be Updated !!</strong> 
+					      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					    </div>
+					    </c:when> 
 					     
 					    <c:otherwise>  
 					       
@@ -69,35 +90,31 @@
                 <form class="mx-1 mx-md-4" action="insert.jsp">
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="text" name="Name" placeholder="Your Name" class="form-control" />
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="email" name="Email" placeholder="Your Email" class="form-control" />
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="password" name="Password" placeholder="Password" class="form-control" />
                     </div>
                   </div>
                   
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="text" name="phone" placeholder="Your Phone Number" class="form-control" />
                     </div>
                   </div>
                   
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-home fa-lg me-3 fa-fw"></i>
+                    
                     <div class="form-outline flex-fill mb-0">
                       <input type="text" name="address" placeholder=" Your Address" class="form-control" />
                     </div>
@@ -113,7 +130,7 @@
               
               <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                 <div class="table-wrapper-scroll-y my-custom-scrollbar">
-				<h5>All USERS</h5>
+				
 				<jsp:include page="Connection.jsp"></jsp:include>
 				<sql:query dataSource="${db}" var="rs">
 					SELECT * from emp_details;  
@@ -131,9 +148,11 @@
 				        <th scope="col">Delete</th>
 				      </tr>
 				    </thead>
+				    
 				    <tbody>
 				    <c:forEach var="table" items="${rs.rows}">
 				    <c:set var="index" scope = "session" value="${1}"/>
+				    
 				      <tr>
 				        <th scope="row"><c:out value = "${index}"/></th>
 				     	
@@ -142,12 +161,16 @@
 				        <td><c:out value="${table.pass}"/></td>
 				        <td><c:out value="${table.phone}"/></td>
 				        <td><c:out value="${table.address}"/></td>
-				        <td><a type="button"  class="btn btn-success" href="edit.jsp?id=${table.id}">Edit</a></td>
-				        <td><a type="button" class="btn btn-danger" href="delete.jsp?id=${table.id}">Delete</a></td>
+				        <td><a type="button"  class="btn btn-outline-secondary" href="edit.jsp?id=${table.id}">Edit</a></td>
+				        <td><a type="button" class="btn btn-outline-dark" href="delete.jsp?id=${table.id}">Delete</a></td>
 				      </tr>
+				      
 				      <c:set var="index" value="${index+1}"/>
+				      
 				     </c:forEach>
+				     
 				    </tbody>
+				    
 				  </table>
 				
 				</div>
